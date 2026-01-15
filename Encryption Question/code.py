@@ -1,14 +1,17 @@
 #Encryption function
 def encrypt_char(shift1, shift2):
+    # Lowercase letters split into two halves
     l1 = "abcdefghijklm"
     l2 = "nopqrstuvwxyz"
+    # Uppercase letters split into two halves
     u1 = "ABCDEFGHIJKLM"
     u2 = "NOPQRSTUVWXYZ"
-    Evalue = ""
+    Evalue = "" # This will store the encrypted text
 
+    # Read the original text from file
     with open("raw_text.txt", "r") as file:
         txt = file.read()
-
+    # Go through each character in the text
     for c in txt:
         if c.islower():
             if c in l1:
