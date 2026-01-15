@@ -33,7 +33,7 @@ def encrypt_char(shift1, shift2):
 
     with open("encrypted.txt", "w") as file:
         file.write(Evalue)
-        
+
 #Decryption function
 def decrypt_char(shift1, shift2):
     l1 = "abcdefghijklm"
@@ -81,16 +81,23 @@ def verify():
 
 
 # MAIN PROGRAM
-print("1. Encrypt        2. Decrypt      3. Exit")
-choice = input("Enter your choice: ")
 
-if choice == "1":
-    shift1 = int(input("Enter shift1: "))
-    shift2 = int(input("Enter shift2: "))
-    encrypt_char(shift1, shift2)
+while True:
+    print("1. Encrypt        2. Decrypt      3. Exit")
+    choice = input("Enter your choice: ")
+    if choice == "1":
+        shift1 = int(input("Enter shift1: "))
+        shift2 = int(input("Enter shift2: "))
+        encrypt_char(shift1, shift2)
 
-elif choice == "2":
-    shift1 = int(input("Enter shift1: "))
-    shift2 = int(input("Enter shift2: "))
-    decrypt_char(shift1, shift2)
-    verify()
+    elif choice== "2":
+        shift1 = int(input("Enter shift1: "))
+        shift2 = int(input("Enter shift2: "))
+        decrypt_char(shift1, shift2)
+        verify()
+    
+    elif choice=="3":
+        break
+
+    else:
+        print("please enter valid number")
