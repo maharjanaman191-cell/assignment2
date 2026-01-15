@@ -85,7 +85,7 @@ def decrypt_char(shift1, shift2):
         file.write(Dvalue)
 
 
-#Verification process
+#Verification Function to check if decryption worked correctly
 def verify():
     with open("raw_text.txt") as f1, open("decrypted.txt") as f2:
         if f1.read() == f2.read():
@@ -97,9 +97,11 @@ def verify():
 # MAIN PROGRAM
 
 while True:
+    # Show menu options and user intraction code
     print("1. Encrypt        2. Decrypt      3. Exit")
     choice = input("Enter your choice: ")
     if choice == "1":
+        # Take shift values and encrypt the file
         shift1 = int(input("Enter shift1: "))
         shift2 = int(input("Enter shift2: "))
         encrypt_char(shift1, shift2)
@@ -111,7 +113,9 @@ while True:
         verify()
     
     elif choice=="3":
+        # Exit the program
         break
 
     else:
+        # Handle invalid menu input
         print("please enter valid number")
