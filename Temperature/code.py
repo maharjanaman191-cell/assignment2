@@ -1,7 +1,9 @@
 import os
 import pandas as pd
 
+# Folder where all the temperature CSV files are stored
 folder = "temperatures"
+# This list will hold data from every CSV file
 all_data = []
 
 # Load all CSV files
@@ -40,12 +42,14 @@ def season(month):
         return "Winter"
     else:
         return "Spring"
-
+        
+# Apply the season function to each row
 data_long["Season"] = data_long["Month"].apply(season)
 
 
 
-# 1. Average temperature per season
+# 1. Average temperature per 
+# Calculate the average temperature for every season
 season_avg = data_long.groupby("Season")["Temperature"].mean()
 
 with open("average_temp.txt", "w") as f:
