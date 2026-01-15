@@ -52,15 +52,21 @@ data_long["Season"] = data_long["Month"].apply(season)
 # Calculate the average temperature for every season
 season_avg = data_long.groupby("Season")["Temperature"].mean()
 
+# Save the seasonal averages to a text file
 with open("average_temp.txt", "w") as f:
     for s, v in season_avg.items():
         f.write(f"{s}: {v:.2f}°C\n")
 
 
 # 2. Station(s) with largest temperature range
+# Calculate how much temperatures vary at each station
 ranges = data_long.groupby("STATION_NAME")["Temperature"].agg(lambda x: x.max() - x.min())
+
+
+# Get the largest temperature range found
 max_range = ranges.max()
 
+# Write the station(s) with the largest range to a file
 with open("temperature_range_stations.txt", "w") as f:
     for station, value in ranges.items():
         if value == max_range:
@@ -68,8 +74,11 @@ with open("temperature_range_stations.txt", "w") as f:
 
 
 # 3. Stability analysis
+
+# Showing how stable or variable temperatures are
 stds = data_long.groupby("STATION_NAME")["Temperature"].std()
 
+# Saving the most stable and most variable stations
 with open("temperature_stability_stations.txt", "w") as f:
     f.write("Most Stable Station(s):\n")
     for s in stds[stds == stds.min()].index:
