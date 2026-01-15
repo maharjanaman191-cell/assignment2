@@ -12,9 +12,8 @@ for file in os.listdir(folder):
 
 data = pd.concat(all_data, ignore_index=True)
 
-# ===============================
+
 # Convert monthly columns into rows
-# ===============================
 month_columns = [
     "January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"
@@ -30,9 +29,8 @@ data_long = data.melt(
 # Remove missing values
 data_long = data_long.dropna(subset=["Temperature"])
 
-# ===============================
+
 # Convert month name → season
-# ===============================
 def season(month):
     if month in ["December", "January", "February"]:
         return "Summer"
@@ -45,18 +43,17 @@ def season(month):
 
 data_long["Season"] = data_long["Month"].apply(season)
 
-# ===============================
+
+
 # 1. Average temperature per season
-# ===============================
 season_avg = data_long.groupby("Season")["Temperature"].mean()
 
 with open("average_temp.txt", "w") as f:
     for s, v in season_avg.items():
         f.write(f"{s}: {v:.2f}°C\n")
 
-# ===============================
+
 # 2. Station(s) with largest temperature range
-# ===============================
 ranges = data_long.groupby("STATION_NAME")["Temperature"].agg(lambda x: x.max() - x.min())
 max_range = ranges.max()
 
@@ -65,9 +62,8 @@ with open("temperature_range_stations.txt", "w") as f:
         if value == max_range:
             f.write(f"{station}: {value:.2f}°C\n")
 
-# ===============================
+
 # 3. Stability analysis
-# ===============================
 stds = data_long.groupby("STATION_NAME")["Temperature"].std()
 
 with open("temperature_stability_stations.txt", "w") as f:
