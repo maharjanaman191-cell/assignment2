@@ -3,11 +3,14 @@ import math
 
 
 def koch_inward(t, length, depth):
-    if depth == 0:
+    if depth == 0: ## If we have reached the last level, just draw a straight line
         t.forward(length)
         return
 
+    #SPLITING THE LINE TO 3 PARTS
     length /= 3
+
+    #DRAWING THE KOCH DESIGN
     koch_inward(t, length, depth - 1)
     t.left(60)
     koch_inward(t, length, depth - 1)
@@ -17,6 +20,7 @@ def koch_inward(t, length, depth):
     koch_inward(t, length, depth - 1)
 
 
+#DRAWING THE POLYGON THAT IS REQUESTED
 def draw_polygon(sides, length, depth):
     screen = turtle.Screen()
     screen.title("Asign 2 Quest 3")
