@@ -39,3 +39,17 @@ def draw_polygon(sides, length, depth):
 
     screen.update()
     turtle.done()
+
+def main():
+    sides = int(input("Number of sides: "))
+    length = float(input("Side length: "))
+    depth = int(input("Recursion depth: "))
+
+    if sides < 3 or length <= 0 or depth < 0:
+        print("Invalid input values.")
+        return
+
+    draw_polygon(sides, length, depth)
+
+
+main()
