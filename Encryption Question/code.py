@@ -13,42 +13,52 @@ def encrypt_char(shift1, shift2):
         txt = file.read()
     # Go through each character in the text
     for c in txt:
+        # If the character is lowercase
         if c.islower():
             if c in l1:
+                # If the character is lowercase
                 idx = l1.index(c)
                 new_idx = (idx + (shift1 * shift2)) % 13
                 Evalue += l1[new_idx]
             elif c in l2:
+                # Shift characters in the second half backward
                 idx = l2.index(c)
                 new_idx = (idx - (shift1 + shift2)) % 13
                 Evalue += l2[new_idx]
+
+        # If the character is uppercase
         elif c.isupper():
+            # Shift uppercase first half backward
             if c in u1:
                 idx = u1.index(c)
                 new_idx = (idx - shift1) % 13
                 Evalue += u1[new_idx]
             elif c in u2:
+                # Shift uppercase second half forward using square of shift2
                 idx = u2.index(c)
                 new_idx = (idx + (shift2 ** 2)) % 13
                 Evalue += u2[new_idx]
         else:
-            Evalue += c
+            Evalue += c # Keep spaces, numbers, and symbols unchanged
 
     with open("encrypted.txt", "w") as file:
         file.write(Evalue)
 
 #Decryption function
 def decrypt_char(shift1, shift2):
+    # Same letter groups used for reversing the encryption
     l1 = "abcdefghijklm"
     l2 = "nopqrstuvwxyz"
     u1 = "ABCDEFGHIJKLM"
     u2 = "NOPQRSTUVWXYZ"
-    Dvalue = ""
+    Dvalue = "" # This will store the decrypted text
 
+    # Read the encrypted text from file
     with open("encrypted.txt", "r") as file:
         txt = file.read()
-
+    # Go through each character and reverse the encryption steps
     for c in txt:
+        # Reverse shift for the whole decryption process
         if c.islower():
             if c in l1:
                 idx = l1.index(c)
@@ -70,6 +80,7 @@ def decrypt_char(shift1, shift2):
         else:
             Dvalue += c
 
+    # Write the decrypted text to a file
     with open("decrypted.txt", "w") as file:
         file.write(Dvalue)
 
